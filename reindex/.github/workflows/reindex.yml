@@ -1,0 +1,31 @@
+name: Reindex Biofruitnet DB
+
+on:
+  workflow_dispatch: {}
+  # (cron var pievienot vēlāk)
+  # schedule:
+  #   - cron: "0 6 * * 1"  # Mondays 06:00 UTC
+
+jobs:
+  reindex:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install deps
+        run: pip install -r requirements.txt
+
+      - name: Run reindex
+        env:
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+        run: python reindex/reindex.py
+
+      - name: Upload DB artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: chroma_db
+          path: db
