@@ -1,0 +1,12 @@
+requests
+beautifulsoup4
+lxml
+pypdf
+tqdm
+chromadb
+langchain
+langchain-community
+langchain-openai
+langchain-text-splitters
+tiktoken
+openai
