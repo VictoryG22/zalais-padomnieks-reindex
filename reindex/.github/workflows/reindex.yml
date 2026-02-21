@@ -18,7 +18,13 @@ jobs:
 
       - name: Install deps
         run: pip install -r requirements.txt
-
+        
+      - name: Check OpenAI key exists
+        run: |
+          python -c "import os; print('OPENAI_API_KEY present:', bool(os.getenv('OPENAI_API_KEY')))"
+        env:
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+          
       - name: Run reindex
         env:
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
